@@ -1,0 +1,126 @@
+workflows:
+  android-dev:
+    name: Android Dev
+    max_build_duration: 120
+    environment:
+      flutter: 3.44.8
+      xcode: latest
+      cocoapods: default
+      java: 17
+    scripts:
+      - name: Set key.properties
+        script: |
+          cat > android/key.properties << 'EOF'
+          storePassword=$KEYSTORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=$KEYSTORE_PATH
+          EOF
+      - name: Flutter pub get
+        script: |
+          flutter pub get
+      - name: Build Android AAB
+        script: |
+          flutter build appbundle --release \
+            --target-platform android-arm64 \
+            --obfuscate \
+            --split-debug-info=build/debug-info
+    artifacts:
+      - android/app/build/outputs/bundle/release/**/*.aab
+
+  android-prod:
+    name: Android Prod
+    max_build_duration: 120
+    environment:
+      flutter: 3.44.8
+      xcode: latest
+      cocoapods: default
+      java: 17
+    scripts:
+      - name: Set key.properties
+        script: |
+          cat > android/key.properties << 'EOF'
+          storePassword=$KEYSTORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=$KEYSTORE_PATH
+          EOF
+      - name: Flutter pub get
+        script: |
+          flutter pub get
+      - name: Build Android AAB
+        script: |
+          flutter build appbundle --release \
+            --target-platform android-arm64 \
+            --obfuscate \
+            --split-debug-info=build/debug-info
+    artifacts:
+      - android/app/build/outputs/bundle/release/**/*.aab
+
+  ios-dev:
+    name: iOS Dev
+    max_build_duration: 120
+    environment:
+      flutter: 3.44.8
+      xcode: latest
+      cocoapods: default
+      groups:
+        - appstore_credentials
+      vars:
+        BUNDLE_ID: "com.itsquery.transportapp"
+    scripts:
+      - name: Set iOS signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_DEVELOPMENT \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Flutter pub get
+        script: |
+          flutter pub get
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/**/*.ipa
+      - flutter_drive.log
+
+  ios-prod:
+    name: iOS Prod
+    max_build_duration: 120
+    environment:
+      flutter: 3.44.8
+      xcode: latest
+      cocoapods: default
+      groups:
+        - appstore_credentials
+      vars:
+        BUNDLE_ID: "com.itsquery.transportapp"
+    scripts:
+      - name: Set iOS signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Flutter pub get
+        script: |
+          flutter pub get
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/**/*.ipa
+      - flutter_drive.log

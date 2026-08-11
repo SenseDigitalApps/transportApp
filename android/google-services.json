@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "600345669606",
+    "project_id": "sense-digital-2cad0",
+    "storage_bucket": "sense-digital-2cad0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600345669606:android:f5a22a20b39510e654b027",
+        "android_client_info": {
+          "package_name": "com.itsquery.transportapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCqxjuEfPpnV3yJe6Ndjp_LaPSLG72dvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600345669606:android:2e68e0aed1e94ae154b027",
+        "android_client_info": {
+          "package_name": "com.sensedigital.sense"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCqxjuEfPpnV3yJe6Ndjp_LaPSLG72dvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600345669606:android:89f7ed8d5d6cc12a54b027",
+        "android_client_info": {
+          "package_name": "itsquery.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCqxjuEfPpnV3yJe6Ndjp_LaPSLG72dvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
