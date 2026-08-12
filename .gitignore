@@ -50,7 +50,6 @@ Thumbs.db
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
-**/ios/Runner.xcworkspace/
 **/ios/Pods/
 **/ios/.symlinks/
 **/ios/Flutter/App.framework
