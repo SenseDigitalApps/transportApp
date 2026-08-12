@@ -357,6 +357,7 @@ class _MyAppState extends State<MyApp> {
           selectionHandleColor: FlutterFlowTheme.of(context).primary,
         ),
       ),
+      debugShowCheckedModeBanner: false,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         useMaterial3: false,
