@@ -12,7 +12,6 @@ import GoogleMaps
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyDn9k7vvdxbJgDgjpCFRXJOdLilbGfVlNA")
-    FirebaseApp.configure()
     GeneratedPluginRegistrant.register(with: self)
 
     // Registrar para notificaciones push (necesario con FirebaseAppDelegateProxyEnabled = false)
