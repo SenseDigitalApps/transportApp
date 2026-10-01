@@ -82,6 +82,17 @@ android {
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
         }
     }
+
+    // Un AAB firmado con la clave debug lo rechaza Play (upload key = SHA1 9F:D8:D2:88:...).
+    // Falla explícito en builds release, en vez de publicar mal firmado sin avisar.
+    gradle.taskGraph.whenReady { graph ->
+        if (!keystorePropertiesFile.exists() && graph.allTasks.any { it.name.toLowerCase().contains('release') }) {
+            throw new GradleException(
+                "Falta android/key.properties: un build release saldría firmado con la clave debug y Play lo rechazará. " +
+                "Créalo con storeFile=../upload_key.jks, keyAlias=upload y las contraseñas del keystore."
+            )
+        }
+    }
 }
 
 flutter {
