@@ -16,6 +16,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '/custom_code/BiometricAuthService.dart';
+import '/custom_code/TenantConfigService.dart';
 
 import 'widgets/widgets.dart';
 
@@ -56,6 +57,17 @@ class _LoginEquipoWidgetState extends State<LoginEquipoWidget> {
     _model.passwordLoginFocusNode ??= FocusNode();
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      // Este fork vive en un único tenant: se fija antes de cualquier llamada al
+      // API (el splash, que antes lo elegía, ya no es la pantalla inicial).
+      FFAppState().organizacion = kTenant;
+
+      // Logo, fondo, colores y metas de Simple App del tenant.
+      await loadTenantConfig();
+      if (mounted) {
+        _syncSettings();
+        setState(() {});
+      }
+
       try {
         final response = await PublicRegistrationOptions.call(
           tenant: FFAppState().organizacion,

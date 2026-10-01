@@ -113,6 +113,8 @@ Archivo: `lib/app_state.dart`
 ## 5. Navegación
 
 - **Router:** `go_router` configurado en `flutter_flow/nav/`.
+- **Arranque:** la ruta `/` monta `LoginEquipoWidget` directamente (sin splash). El tenant es fijo: `kTenant = 'apitransportapp'` en `lib/custom_code/TenantConfigService.dart`, aplicado en `LoginEquipoWidget` antes de cualquier llamada al API. El splash (`/splashScreen`) sólo se alcanza desde el flujo de clientes.
+- **Config del tenant:** `loadTenantConfig()` (mismo archivo) descarga los metadatos (`logo_link`, `fondo_link`, colores, `simple_app*`) a `FFAppState`; antes lo hacía el splash al pulsar "Ingresar".
 - **Estrategia de URL:** `usePathUrlStrategy()` habilitado (sin `#` en web).
 - **Páginas de inicio dinámicas:** Se registran en `HomeWidgetRegistry` (`config/home_widget_registry.dart`). Actualmente registrada: `custom-dashboard` → `CustomDashboardWidget`.
 - **Deep links / Notificaciones:** Las notificaciones push FCM navegan a `PushNotificationService.fixedRoute`.

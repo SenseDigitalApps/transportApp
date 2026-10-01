@@ -55,7 +55,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     FFAppState().role == FFAppState().simpleAppRole)
                 ? '/homeSimpleApp'
                 : '/home'
-            : '/';
+            // Sesión de cliente abierta: el splash ya no es la pantalla inicial,
+            // así que aquí se retoma su redirección a homeClient.
+            : (FFAppState().clientId != '')
+                ? '/homeClient?userId=${FFAppState().clientId}'
+                : '/';
         return loc;
       }(),
       debugLogDiagnostics: true,
@@ -80,7 +84,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const SplashScreenWidget(),
+          // Sin splash: el fork arranca en el login del tenant fijo (ver kTenant).
+          builder: (context, _) => const LoginEquipoWidget(),
         ),
         FFRoute(
           name: 'SplashScreen',
